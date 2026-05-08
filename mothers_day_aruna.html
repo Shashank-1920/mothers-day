@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Mother's Day, Amma 💖</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&family=Dancing+Script:wght@600&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --pink: #f9c6d0;
+            --rose: #e8899a;
+            --lavender: #c9b8e8;
+            --lilac: #e8dff5;
+            --cream: #fff8f0;
+            --gold: #d4a843;
+            --dark: #4a2d3c;
+            --text: #3d2a35;
+            --muted: #8a6675;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--cream);
+            font-family: 'Lato', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Stars background ── */
+        .starfield {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0;
+            animation: twinkle var(--d) ease-in-out infinite var(--del);
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 0.55;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ── Petal rain ── */
+        .petal {
+            position: fixed;
+            top: -40px;
+            font-size: 18px;
+            opacity: 0;
+            animation: fall var(--fd) linear infinite var(--fdel);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            90% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* ── Cover page ── */
+        #cover {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(160deg, #fde8ef 0%, #ede0f8 50%, #fde8ef 100%);
+        }
+
+        .cover-castle {
+            font-size: clamp(5rem, 18vw, 9rem);
+            line-height: 1;
+            margin-bottom: 1.2rem;
+            animation: floatUp 3s ease-in-out infinite;
+            filter: drop-shadow(0 8px 24px rgba(200, 120, 160, 0.25));
+        }
+
+        @keyframes floatUp {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .cover-tagline {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+            letter-spacing: 0.35em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            opacity: 0;
+            animation: fadeIn 1s 0.4s forwards;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 8vw, 4.2rem);
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 1s 0.7s forwards;
+        }
+
+        .cover-title em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        .cover-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 7vw, 3.2rem);
+            color: var(--rose);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .open-btn {
+            display: inline-block;
+            padding: 0.85rem 2.4rem;
+            background: var(--rose);
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(232, 137, 154, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            animation: fadeIn 1s 1.3s forwards;
+            text-decoration: none;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(232, 137, 154, 0.5);
+        }
+
+        /* ── Storybook ── */
+        #book {
+            display: none;
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            padding: 3rem 1rem 4rem;
+        }
+
+        .book-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .book-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 5vw, 2.4rem);
+            color: var(--dark);
+            font-style: italic;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            margin: 0.7rem 0;
+        }
+
+        .divider-line {
+            height: 1px;
+            width: 60px;
+            background: var(--pink);
+        }
+
+        .divider-dot {
+            font-size: 18px;
+        }
+
+        /* ── Pages strip ── */
+        .pages-track {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 1.5rem 1rem 2rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .pages-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ── Single page card ── */
+        .page-card {
+            flex: 0 0 min(320px, 82vw);
+            scroll-snap-align: center;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(74, 45, 60, 0.10), 0 2px 8px rgba(74, 45, 60, 0.06);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            perspective: 800px;
+        }
+
+        .page-card:hover {
+            transform: translateY(-6px) rotateY(3deg) rotateX(-2deg);
+            box-shadow: 0 18px 50px rgba(74, 45, 60, 0.16);
+        }
+
+        /* spine accent */
+        .page-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--card-accent, var(--rose));
+            border-radius: 0;
+        }
+
+        /* page number tag */
+        .page-num {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: var(--muted);
+            opacity: 0.6;
+        }
+
+        .page-photo {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--lilac) 0%, var(--pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(74, 45, 60, 0.55));
+            padding: 1rem 1rem 0.7rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-body {
+            padding: 1.2rem 1.4rem 1.6rem;
+        }
+
+        .page-chapter {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .page-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .page-text {
+            font-size: 0.88rem;
+            line-height: 1.75;
+            color: #6a4a57;
+        }
+
+        .page-text em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        /* ── Final wish card ── */
+        .wish-card {
+            max-width: 560px;
+            margin: 3rem auto 0;
+            background: linear-gradient(135deg, #fde8ef, #ede0f8);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(74, 45, 60, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wish-card::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 5rem;
+            opacity: 0.07;
+            pointer-events: none;
+        }
+
+        .wish-emoji {
+            font-size: 3rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .wish-heading {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .wish-text {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .confetti-btn {
+            padding: 0.75rem 2rem;
+            background: var(--lavender);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(201, 184, 232, 0.5);
+        }
+
+        .confetti-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ── Nav dots ── */
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 1.2rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pink);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--rose);
+            transform: scale(1.3);
+        }
+
+        /* ── Confetti canvas ── */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* ── Scroll hint ── */
+        .scroll-hint {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.6rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ── Pop Animations ── */
+        .pop-element {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pop-element.popped {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        @media (min-width: 700px) {
+            .pages-track {
+                padding: 2rem 2rem 2.5rem;
+                gap: 2.5rem;
+            }
+
+            .page-card {
+                flex: 0 0 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Stars -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Petals -->
+    <div id="petals"></div>
+
+    <!-- Confetti canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- ── COVER ── -->
+    <section id="cover">
+        <div class="cover-castle">🏰</div>
+        <p class="cover-tagline">A little storybook, made with love</p>
+        <h1 class="cover-title">Once upon a time,<br>there was <em>you</em>…</h1>
+        <p class="cover-name">Amma 🌸</p>
+        <button class="open-btn" onclick="openBook()">Open the Story ✨</button>
+    </section>
+
+    <!-- ── BOOK ── -->
+    <section id="book">
+        <div class="book-header">
+            <h2 class="pop-element">The Story of My Amma</h2>
+            <div class="divider pop-element delay-1">
+                <div class="divider-line"></div>
+                <span class="divider-dot">🌸</span>
+                <div class="divider-line"></div>
+            </div>
+        </div>
+
+        <div class="pages-track" id="pagesTrack">
+
+            <!-- Page 1 -->
+            <div class="page-card" style="--card-accent:#e8899a;">
+                <div class="page-num">01</div>
+                <div class="page-photo pop-element" style="background:linear-gradient(135deg,#fde8ef,#f9c6d0);">
+                    🌸
+                    <!-- Replace below src with your photo -->
+                    <img src="4.jpg" alt="Amma" />
+                    <div class="photo-caption">The beginning of everything ✨</div>
+                </div>
+                <div class="page-body">
+                    <p class="page-chapter pop-element delay-1">Chapter One</p>
+                    <h3 class="page-heading pop-element delay-2">My World Began With You</h3>
+                    <p class="page-text pop-element delay-3">
+                        Amma, nuvvu naa modati home. Nee chethullo naaku eppudu safe ga anipinchedi — like a princess in
+                        her castle,
+                        always protected. <em>You are my first magic.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="page-card" style="--card-accent:#c9b8e8;">
+                <div class="page-num">02</div>
+                <div class="page-photo pop-element" style="background:linear-gradient(135deg,#ede0f8,#c9b8e8);">
+                    🌙
+                    <img src="2.jpg" alt="Amma" />
+                    <div class="photo-caption">Late nights & lullabies 🎶</div>
+                </div>
+                <div class="page-body">
+                    <p class="page-chapter pop-element delay-1">Chapter Two</p>
+                    <h3 class="page-heading pop-element delay-2">The Magical Nights</h3>
+                    <p class="page-text pop-element delay-3">
+                        Just like Cinderella's fairy godmother, nuvvu impossible ni possible chesthavu — poddunne lechi,
+                        andariki
+                        prepare chesi, neeku rest kuda teesukokunda. <em>Pure magic, every day.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="page-card" style="--card-accent:#d4a843;">
+                <div class="page-num">03</div>
+                <div class="page-photo pop-element" style="background:linear-gradient(135deg,#fdf3dc,#f9e4b7);">
+                    ☀️
+                    <img src="1.jpg" alt="Amma" />
+                    <div class="photo-caption">Sunshine in human form 🌻</div>
+                </div>
+                <div class="page-body">
+                    <p class="page-chapter pop-element delay-1">Chapter Three</p>
+                    <h3 class="page-heading pop-element delay-2">My Sunshine, My Strength</h3>
+                    <p class="page-text pop-element delay-3">
+                        Disney lo Belle books ni love chestundi, kaani nuvvu real stories ni love chesthavu — naa
+                        stories. Naa wins,
+                        naa struggles anni nuvvu neevi laa feel chesthavu. <em>That's a superpower, Amma.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Page 4 -->
+            <div class="page-card" style="--card-accent:#e8899a;">
+                <div class="page-num">04</div>
+                <div class="page-photo pop-element" style="background:linear-gradient(135deg,#fde8ef,#e8dff5);">
+                    🎀
+                    <img src="5.jpg" alt="Amma" />
+                    <div class="photo-caption">Always the best dressed queen 👑</div>
+                </div>
+                <div class="page-body">
+                    <p class="page-chapter pop-element delay-1">Chapter Four</p>
+                    <h3 class="page-heading pop-element delay-2">My Favourite Character</h3>
+                    <p class="page-text pop-element delay-3">
+                        Neeku Disney movies ante ishtam — kaani nuvvu choose movie kaadu, nuvve oka story. <em>Strong.
+                            Graceful.
+                            Unbreakable.</em> Neelanti character ni Disney ki introduce cheyali ani naaku anipistundi!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Page 5 -->
+            <div class="page-card" style="--card-accent:#c9b8e8;">
+                <div class="page-num">05</div>
+                <div class="page-photo pop-element" style="background:linear-gradient(135deg,#e8dff5,#fde8ef);">
+                    💫
+                    <img src="3.jpg" alt="Amma" />
+                    <div class="photo-caption">Forever my favourite person 💖</div>
+                </div>
+                <div class="page-body">
+                    <p class="page-chapter pop-element delay-1">Chapter Five</p>
+                    <h3 class="page-heading pop-element delay-2">And They Lived Happily…</h3>
+                    <p class="page-text pop-element delay-3">
+                        Every Disney story ends with "happily ever after" — kaani naa happily ever after nuvve. Neetho
+                        unte every
+                        ordinary day feels like a fairytale. <em>Nenu lucky, Amma. Chaala lucky.</em>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- nav dots -->
+        <div class="nav-dots pop-element" id="navDots"></div>
+        <p class="scroll-hint pop-element">← swipe to read →</p>
+
+        <!-- Wish card -->
+        <div class="wish-card">
+            <div class="wish-emoji pop-element">👑🌸✨</div>
+            <h3 class="wish-heading pop-element delay-1">Happy Mother's Day, Amma!</h3>
+            <p class="wish-text pop-element delay-2">
+                Nuvvu naa fairy godmother, naa queen, naa home. <br>
+                Neelanti Amma dorakadam naa life lo athi pedda gift.<br><br>
+                <em>"Even miracles take a little time." — Cinderella</em><br><br>
+                Kaani nuvvu ye miracle ki wait cheyavu — nuvve miracle, Amma. 💖
+            </p>
+            <button class="confetti-btn pop-element delay-3" onclick="launchConfetti()">🎉 Celebrate Amma!</button>
+        </div>
+
+    </section>
+
+    <script>
+        /* ── Stars ── */
+        (function () {
+            const sf = document.getElementById('starfield');
+            for (let i = 0; i < 55; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                const sz = Math.random() * 3 + 1.5;
+                s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random() * 100}%;top:${Math.random() * 100}%;--d:${2 + Math.random() * 4}s;--del:${Math.random() * 5}s`;
+                sf.appendChild(s);
+            }
+        })();
+
+        /* ── Petals ── */
+        (function () {
+            const pc = document.getElementById('petals');
+            const emojis = ['🌸', '🌺', '✿', '💮', '🌼', '💖'];
+            for (let i = 0; i < 18; i++) {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                p.style.cssText = `left:${Math.random() * 100}%;--fd:${5 + Math.random() * 8}s;--fdel:${Math.random() * 10}s;font-size:${14 + Math.random() * 12}px;`;
+                pc.appendChild(p);
+            }
+        })();
+
+        /* ── Open book ── */
+        function openBook() {
+            const cover = document.getElementById('cover');
+            const book = document.getElementById('book');
+            cover.style.transition = 'opacity 0.6s, transform 0.6s';
+            cover.style.opacity = '0';
+            cover.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                book.style.display = 'block';
+                book.style.opacity = '0';
+                book.style.transition = 'opacity 0.6s';
+                requestAnimationFrame(() => { book.style.opacity = '1'; });
+                buildDots();
+                initAnimations();
+            }, 600);
+        }
+
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('popped');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.pop-element').forEach(el => observer.observe(el));
+        }
+
+        /* ── Nav dots ── */
+        function buildDots() {
+            const track = document.getElementById('pagesTrack');
+            const cards = [...track.querySelectorAll('.page-card')];
+            const nd = document.getElementById('navDots');
+            cards.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.className = 'dot' + (i === 0 ? ' active' : '');
+                d.onclick = () => { cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); };
+                nd.appendChild(d);
+            });
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const idx = cards.indexOf(e.target);
+                        [...nd.children].forEach((d, i) => d.classList.toggle('active', i === idx));
+                    }
+                });
+            }, { threshold: 0.6, root: track });
+            cards.forEach(c => obs.observe(c));
+        }
+
+        /* ── Confetti ── */
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+            const colors = ['#f9c6d0', '#c9b8e8', '#e8899a', '#d4a843', '#ede0f8', '#fde8ef'];
+            const particles = [];
+            for (let i = 0; i < 180; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 7 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: Math.random() * 4 + 2,
+                    rot: Math.random() * 360,
+                    rspeed: (Math.random() - 0.5) * 6,
+                    shape: Math.random() > 0.5 ? 'circle' : 'rect'
+                });
+            }
+            let frame = 0;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    if (p.shape === 'circle') {
+                        ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill();
+                    } else {
+                        ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+                    }
+                    ctx.restore();
+                    p.x += p.vx; p.y += p.vy; p.rot += p.rspeed;
+                    if (p.y > canvas.height) { p.y = -20; p.x = Math.random() * canvas.width; }
+                });
+                frame++;
+                if (frame < 200) requestAnimationFrame(draw);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            draw();
+        }
+    </script>
+</body>
+
+</html>
